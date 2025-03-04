@@ -18,13 +18,11 @@ spec:
         - name: demo
           image: demo
           imagePullPolicy: IfNotPresent
+          env:
+            - name: TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  name: demo-cm
+                  key: token
           ports:
             - containerPort: 9000
-          volumeMounts:
-            - mountPath: /config
-              name: config
-              readOnly: true
-      volumes:
-        - name: config
-          configMap:
-            name: demo-cm

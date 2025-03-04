@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io"
 	"net/http"
 	"os"
 )
@@ -33,10 +32,7 @@ func readConfig(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 
-	filePath := "/config/ca.crt"
+	token := os.Getenv("TOKEN")
 
-	file, _ := os.Open(filePath)
-	readFile, _ := io.ReadAll(file)
-
-	w.Write(readFile)
+	w.Write([]byte(token))
 }

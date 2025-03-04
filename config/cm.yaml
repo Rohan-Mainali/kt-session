@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: demo-cm
 data:
-  token: "jwt-token"
+  token: "jwt-token-updated"
   ca.crt: "certificate-signed"
   game.properties: |
     enemy.types=aliens,monsters
