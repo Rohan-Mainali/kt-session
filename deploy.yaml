@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kt-deployment
+  labels:
+    app: test
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: test
+  template:
+    metadata:
+      labels:
+        app: test
+    spec:
+      containers:
+        - name: demo
+          image: demo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9000
+          volumeMounts:
+            - mountPath: /config
+              name: config
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: demo-cm
