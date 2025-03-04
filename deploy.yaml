@@ -19,10 +19,17 @@ spec:
           image: demo
           imagePullPolicy: IfNotPresent
           env:
+            - name: ENV
+              value: "DEV"
             - name: TOKEN
               valueFrom:
                 configMapKeyRef:
                   name: demo-cm
                   key: token
+            - name: API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: api-token-secret
+                  key: api-token
           ports:
             - containerPort: 9000
