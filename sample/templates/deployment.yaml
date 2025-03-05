@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
         - name: demo
-          image: demo
-          imagePullPolicy: IfNotPresent
+          image: '{{ .Values.image.repository }}'
+          imagePullPolicy: '{{ .Values.image.pullPolicy }}'
           env:
             - name: ENV
               value: "DEV"
