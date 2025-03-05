@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kt-deployment
+  labels:
+    app: test
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: test
+  template:
+    metadata:
+      labels:
+        app: test
+    spec:
+      containers:
+        - name: demo
+          image: '{{ .Values.sample.image.repo }}'
+          imagePullPolicy: '{{ .Values.sample.image.pullPolicy }}'
+          env:
+            - name: ENV
+              value: "DEV"
+            - name: TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  name: demo-cm
+                  key: token
+            - name: API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: api-token-secret
+                  key: api-token
+          ports:
+            - containerPort: 9000
